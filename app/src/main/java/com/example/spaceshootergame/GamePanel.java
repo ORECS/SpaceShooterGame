@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -37,7 +38,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Point playerPoint;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private Point enemyPoint;
-    private int level =1;
+    private int level =0;
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private Point bulletPoint;
     private int bulletCounter = 0;
@@ -49,6 +50,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int level2 =0;
     private int level3 =0;
     private Bitmap[] background = new Bitmap[3];
+    private MediaPlayer bGMusic;
 
 
     public GamePanel(Context context) {
@@ -57,12 +59,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //Access to the underlying surface is provided via the SurfaceHolder interface,
         // which can be retrieved by calling getHolder()
         getHolder().addCallback(this);
+        thread = new MainThread(getHolder(), this);
         paint = new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.YELLOW);
         paint.setTextSize(60);
         paint.setStyle(Paint.Style.FILL);
         //Instantiating MainThread class that we made
-        thread = new MainThread(getHolder(), this);
+
+        bGMusic = MediaPlayer.create(context, R.raw.music);
+        bGMusic.start();
 
         playerPoint = new Point(150, 1600);
         player = new Player(new Rect(0, 0, 100, 100), playerPoint, this.getContext());
@@ -145,23 +150,23 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             case 0:
                 if (enemies.size() < 1) {
-                    enemyPoint.set(random.nextInt(600), 300);
-                    enemies.add(new Enemy(new Rect(0, 0, 150, 200), enemyPoint, this.getContext(),random.nextInt(6)));
+                    enemyPoint.set(random.nextInt(600), random.nextInt(600));
+                    enemies.add(new Enemy(new Rect(0, 0, 150, 200), enemyPoint, this.getContext(), 1 +random.nextInt(6)));
 
                 }
 
                 break;
             case 1:
                 if (enemies.size() < 2 && level2 != 2) {
-                    enemyPoint.set(random.nextInt(600), 150);
-                    enemies.add(new Enemy(new Rect(0, 0, 100, 100), enemyPoint, this.getContext(),random.nextInt(10)));
+                    enemyPoint.set(random.nextInt(600), random.nextInt(600));
+                    enemies.add(new Enemy(new Rect(0, 0, 100, 100), enemyPoint, this.getContext(), 1 +random.nextInt(10)));
                     level2++;
                 }
                 break;
             case 2:
                 if (enemies.size() < 3 && level3 != 3) {
-                    enemyPoint.set(random.nextInt(600), 150);
-                    enemies.add(new Enemy(new Rect(0, 0, 100, 100), enemyPoint, this.getContext(),random.nextInt(15)));
+                    enemyPoint.set(random.nextInt(600), random.nextInt(600));
+                    enemies.add(new Enemy(new Rect(0, 0, 100, 100), enemyPoint, this.getContext(),1 +random.nextInt(15)));
                     level3++;
                     break;
                 }
@@ -312,7 +317,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //adding the player to the canvas
         player.draw(canvas);
-        canvas.drawText("" + score,100,100,paint);
+        canvas.drawText("SCORE: " + score,100,100,paint);
 
 
         for (Bullet bullet : bullets) {
