@@ -16,7 +16,14 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -51,8 +58,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int level3 =0;
     private Bitmap[] background = new Bitmap[3];
     private MediaPlayer bGMusic;
+    private int highScore = 0;
 
 
+    /**
+     * setting up gamepanel constructor
+     * thread and firebase set up here
+     * as well as some sprites
+     * @param context
+     */
     public GamePanel(Context context) {
         super(context);
 
@@ -60,6 +74,27 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // which can be retrieved by calling getHolder()
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(), this);
+        //Firebase
+
+            FirebaseDatabase.getInstance().getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        highScore =  dataSnapshot.getValue(Integer.class);
+                        System.out.println("High Score "+highScore);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+
+
         paint = new Paint();
         paint.setColor(Color.YELLOW);
         paint.setTextSize(60);
@@ -70,7 +105,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         bGMusic.start();
 
         playerPoint = new Point(150, 1600);
-        player = new Player(new Rect(0, 0, 100, 100), playerPoint, this.getContext());
+        player = new Player(new Rect(0, 0, 160, 80), playerPoint, this.getContext());
 
 
         enemyPoint = new Point(500, 150);
@@ -83,12 +118,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-
+    /**
+     * bullet func method for the enemy and player
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void bulletFunc() {
 
         if (bulletCounter > 80) {
-            bulletPoint = new Point(player.getxPos() + 65, player.getyPos() + 15); // aligns with spaceship
+            bulletPoint = new Point(player.getxPos() + 10 , player.getyPos()-10); // aligns with spaceship
             bullets.add(new Bullet(new Rect(0, 0, 10, 40), bulletPoint, this.getContext(),0,0));
             bulletCounter = 0;
 
@@ -119,7 +156,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-        //nemies.removeIf(enemy ->(enemy.isAlive));
+
 
 
         bullets.removeIf(bullet -> (bullet.isBulletExplosion()));
@@ -137,11 +174,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
+
+
     }
 
 
-
-
+    /**
+     * enemy func method
+     *
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void enemyFunc() {
 
@@ -161,15 +202,59 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     enemyPoint.set(random.nextInt(600), random.nextInt(600));
                     enemies.add(new Enemy(new Rect(0, 0, 100, 100), enemyPoint, this.getContext(), 1 +random.nextInt(10)));
                     level2++;
+
+                }
+                if(score>highScore){
+
+                    FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("Data")
+                            .setValue(score)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    System.out.println("Updated");
+                                }
+                            });
+
                 }
                 break;
             case 2:
                 if (enemies.size() < 3 && level3 != 3) {
-                    enemyPoint.set(random.nextInt(600), random.nextInt(600));
+                    enemyPoint.set(50+random.nextInt(600), 50+random.nextInt(600));
                     enemies.add(new Enemy(new Rect(0, 0, 100, 100), enemyPoint, this.getContext(),1 +random.nextInt(15)));
                     level3++;
-                    break;
+
+
+
+
                 }
+
+
+                if(score>highScore) {
+
+                    FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("Data")
+                            .setValue(score)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    System.out.println("Updated");
+                                }
+                            });
+                }
+
+                break;
+            case 3:
+                thread.setRunning(false);
+                Intent intent = new Intent(this.getContext(), GameOver.class);
+                this.getContext().startActivity(intent);
+                ((Activity)this.getContext()).finish();
+
+                break;
 
         }
 
@@ -201,7 +286,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-
+    /**
+     * player func method for player activities
+     */
     private void PlayerFunc() {
 
         if(player.getHealth() < 1){
@@ -219,15 +306,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    // default methods
-
-
+    /**
+     *
+     * @param holder
+     * @param format
+     * @param width
+     * @param height
+     */
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
     }
 
-
+    /**
+     *
+     * @param holder
+     */
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(), this);
@@ -236,7 +330,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread.start();
     }
 
-
+    /**
+     *
+     * @param holder
+     */
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
@@ -252,6 +349,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    /**
+     * for player movement
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -269,7 +371,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    //If the object needs to move or it is need to constantly check for collision must use this method.
+    /**
+     * If the object needs to move or it needs to constantly check for collision must use this method.
+     */
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void update() {
 
@@ -292,8 +397,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    /**
+     * This method will add any object on the surfaceView
+     * @param canvas
+     */
 
-    //This method will add any object on the surfaceView
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -318,7 +426,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //adding the player to the canvas
         player.draw(canvas);
         canvas.drawText("SCORE: " + score,100,100,paint);
-
+        canvas.drawText("HIGHSCORE: " + highScore,600,100,paint);
 
         for (Bullet bullet : bullets) {
             bullet.draw(canvas);

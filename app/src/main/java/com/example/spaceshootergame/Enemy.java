@@ -26,8 +26,8 @@ public class Enemy extends Position implements GameObject {
 
 
     /**
-     * In order for the update to work with the velocity I need to pass point and  store the point values to x and y.
-     * If I pass x and y then set point it will give errors
+     * constructor sets up the rectangle, point, context and speed
+     * also assings the spirtes into a bitmap
      *
      * @param rectangle
      * @param point
@@ -52,7 +52,9 @@ public class Enemy extends Position implements GameObject {
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);
     }
 
-
+    /**
+     * method for bullet allignment and counter calculations
+     */
     private void bulletFunc() {
 
         if (bulletCounter > 80) {
@@ -62,10 +64,6 @@ public class Enemy extends Position implements GameObject {
 
         }
 
-
-//        bullets.removeIf(bullet -> (bullet.isBulletExplosion()));
-
-
     }
 
 
@@ -74,6 +72,7 @@ public class Enemy extends Position implements GameObject {
 
 
     /**
+     * draws enemy onto canvas
      * @param canvas
      */
     @Override
@@ -105,7 +104,9 @@ public class Enemy extends Position implements GameObject {
     }
 
 
-
+    /**
+     * method for enemy movement
+     */
     public void movement() {
         this.setxPos(this.getxPos()+speed);
         if(this.getxPos()> 800){
@@ -122,8 +123,9 @@ public class Enemy extends Position implements GameObject {
     }
 
 
-
-
+    /**
+     * overrides method in gameobject which updates te enemy on the canvas screen
+     */
     @Override
     public void update() {
         movement();
@@ -137,15 +139,18 @@ public class Enemy extends Position implements GameObject {
     }
 
 
-//    /**
-//     * I just had to (getXPos() - rectangle.width() / 2)+velX  if I do it the way I code in java fx
-//     */
-//    public void update(int velX, int velY) {
-//
-//        this.setxPos(this.getxPos() + velX);
-//        this.setyPos(this.getyPos() + velY);
-//        rectangle.set((this.getxPos() - rectangle.width() / 2) + velX, (this.getyPos() - rectangle.height() / 2) + velY, (this.getxPos() + rectangle.width() / 2) + velX, (this.getyPos() + rectangle.height() / 2) + velY);
-//    }
+    /**
+     * Method is used to update the position
+     *
+     * @param n1
+     * @param n2
+     */
+    @Override
+    public void updatePos(int n1, int n2) {
+        this.setxPos(n1);
+        this.setyPos(n2);
+
+    }
 
 
 
@@ -181,9 +186,6 @@ public class Enemy extends Position implements GameObject {
         this.level = level;
     }
 
-    @Override
-    public void updatePos(int n1, int n2) {
 
-    }
 }
 

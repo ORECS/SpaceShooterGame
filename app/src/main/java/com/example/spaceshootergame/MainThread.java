@@ -15,15 +15,21 @@ public class MainThread extends Thread {
     private boolean running;
     public static Canvas canvas;
 
-
+    /**
+     * constructor for main thread class
+     * @param surfaceHolder
+     * @param gamePanel
+     */
     public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
         super();
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
     }
 
+    /**
+     * The run method is part of the run class
+     */
 
-    // The run method is part of the run class
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void run() {

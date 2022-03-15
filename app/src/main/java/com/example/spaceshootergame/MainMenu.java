@@ -8,11 +8,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+
+/**
+ * class is used to set up the main method activity menu
+ */
 public class MainMenu extends AppCompatActivity {
 
 
     private Button play;
     private Button quit;
+    private Button settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,14 @@ public class MainMenu extends AppCompatActivity {
         quit.setOnClickListener(view -> {
 
          System.exit(0);
+
+        });
+
+        settings = findViewById(R.id.settings);
+        settings.setOnClickListener(view -> {
+
+            Intent intenttwo = new Intent(getApplicationContext(), Settings.class);
+            startActivity(intenttwo);
 
         });
 

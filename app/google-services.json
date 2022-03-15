@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "519634544309",
+    "project_id": "spaceshooter-cd581",
+    "storage_bucket": "spaceshooter-cd581.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519634544309:android:6e065a99e2bd217ec2c0fc",
+        "android_client_info": {
+          "package_name": "com.example.spaceshootergame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519634544309-jqaenj7qigpv9kdbq95hpru10s0kkik2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spaceshootergame",
+            "certificate_hash": "45236c91c32a69abbcb7874140d4df44c4b5e602"
+          }
+        },
+        {
+          "client_id": "519634544309-t3ak0ru1m9992luitherbslv3vmh2nnu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArYl1M4XcQHe0IB3wqJHbxrYbjV33QyrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519634544309-t3ak0ru1m9992luitherbslv3vmh2nnu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

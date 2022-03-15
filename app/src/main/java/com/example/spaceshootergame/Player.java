@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
@@ -19,11 +21,11 @@ public class Player extends Position implements GameObject {
     private double oldYPos = 0;
     private int speed = 6;
     public boolean playerExplosion =false;
+    private Paint p;
 
 
     /**
-     * In order for the update to work with the velocity I need to pass point and  store the point values to x and y.
-     * If I pass x and y then set point it will give errors
+     * sets up rectangle, point, context and some sprites for the player
      *
      * @param rectangle
      * @param point
@@ -35,7 +37,9 @@ public class Player extends Position implements GameObject {
         this.setyPos(point.y);
 
         this.context = context;
-
+        //p = new Paint();
+       // p.setStyle(Paint.Style.FILL_AND_STROKE);
+       // p.setColor(Color.WHITE);
         //Setting up the playerSprite
         playerSprite = BitmapFactory.decodeResource(this.context.getResources(), R.drawable.player);
 
@@ -43,13 +47,14 @@ public class Player extends Position implements GameObject {
         //Setting up the points of the rectangle shape. This will draw the four points of the rectangle
         //left, top, right, bottom
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);
-        // need to understand
+
     }
 
 
 
 
     /**
+     * draws player onto canvas
      * @param canvas
      */
     @Override
@@ -60,15 +65,16 @@ public class Player extends Position implements GameObject {
         //resizing and setting the bitmap to the playerSprite
         resizedPlayerSprite =  Bitmap.createScaledBitmap(playerSprite, 200, 200, true);
 
-
+        //canvas.drawRect(rectangle,p);
         //drawing the Bitmap on to the canvas
-        canvas.drawBitmap(resizedPlayerSprite, this.getxPos() - 35, this.getyPos() - 25, null);
+        canvas.drawBitmap(resizedPlayerSprite, this.getxPos() - 90, this.getyPos() - 90, null);
         // the numbers are so the rectangle and sprite align
 
     }
 
 
     /**
+     * movement method for player
      * @param event
      */
     public void movement(MotionEvent event) {
@@ -99,7 +105,9 @@ public class Player extends Position implements GameObject {
         this.setxVel(0);
     }
 
-
+    /**
+     * needs to be implemented so that class is not abstract
+     */
     @Override
     public void update() {
 
@@ -116,7 +124,15 @@ public class Player extends Position implements GameObject {
         rectangle.set((this.getxPos() - rectangle.width() / 2) + velX, (this.getyPos() - rectangle.height() / 2) + velY, (this.getxPos() + rectangle.width() / 2) + velX, (this.getyPos() + rectangle.height() / 2) + velY);
     }
 
+    /**
+     *
+     * @param n1
+     * @param n2
+     */
+    @Override
+    public void updatePos(int n1, int n2) {
 
+    }
 
     public Rect getRectangle() {
         return rectangle;
@@ -143,8 +159,5 @@ public class Player extends Position implements GameObject {
     }
 
 
-    @Override
-    public void updatePos(int n1, int n2) {
 
-    }
 }

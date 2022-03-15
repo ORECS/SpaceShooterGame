@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceShooterGame">
         <activity
+            android:name=".Settings"
+            android:exported="true" />
+        <activity
             android:name=".GameOver"
             android:exported="true"/>
         <activity

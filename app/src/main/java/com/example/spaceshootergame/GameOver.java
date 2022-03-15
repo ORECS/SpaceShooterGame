@@ -12,6 +12,9 @@ public class GameOver extends AppCompatActivity {
     private Button Replay;
     private Button quit;
 
+    /**
+     * constructor for gameoverclass which sets up the layout for when the game ends
+     */
     public GameOver(){
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game_over);

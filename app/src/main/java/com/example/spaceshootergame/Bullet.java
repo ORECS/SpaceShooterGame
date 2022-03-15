@@ -27,11 +27,12 @@ public class Bullet extends Position implements GameObject {
 
 
     /**
-     * In order for the update to work with the velocity I need to pass point and  store the point values to x and y.
-     * If I pass x and y then set point it will give errors
+     * constructor sets up the sprites and the rectangle for the bullet
      *
      * @param rectangle
      * @param point
+     * @param context
+     * @param bulletAnimation
      */
     public Bullet(Rect rectangle, Point point, Context context,int direction, int bulletAnimation) {
         super();
@@ -60,6 +61,7 @@ public class Bullet extends Position implements GameObject {
 
     /**
      * @param canvas
+     * method serves to draw the bullet onto the canvas
      */
     @Override
     public void draw(Canvas canvas) {
@@ -81,7 +83,9 @@ public class Bullet extends Position implements GameObject {
     }
 
 
-
+    /**
+     *  This method controls the movement of the bullet in the canvas
+     */
     public void movement() {
 
         // this.setyPos(this.getyPos()-speed); // causes bullet to go up
@@ -107,7 +111,9 @@ public class Bullet extends Position implements GameObject {
         }
     }
 
-
+    /**
+     * Method contantly updates the bullet as it moves
+     */
     @Override
     public void update() {
         movement();
@@ -125,6 +131,23 @@ public class Bullet extends Position implements GameObject {
 //        this.setyPos(this.getyPos() + velY);
 //        rectangle.set((this.getxPos() - rectangle.width() / 2) + velX, (this.getyPos() - rectangle.height() / 2) + velY, (this.getxPos() + rectangle.width() / 2) + velX, (this.getyPos() + rectangle.height() / 2) + velY);
 //    }
+
+    /**
+     * Method is used to update the position
+     *
+     * @param n1
+     * @param n2
+     */
+    @Override
+    public void updatePos(int n1, int n2) {
+        this.setxPos(n1);
+        this.setyPos(n2);
+
+    }
+
+
+
+
 
 
 
@@ -154,8 +177,4 @@ public class Bullet extends Position implements GameObject {
 
 
 
-    @Override
-    public void updatePos(int n1, int n2) {
-
-    }
 }
