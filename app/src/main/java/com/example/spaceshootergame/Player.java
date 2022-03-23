@@ -4,13 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-public class Player extends Position implements GameObject {
+public class Player extends Object implements GameObject {
 
     private Rect rectangle;
     private Bitmap playerSprite;

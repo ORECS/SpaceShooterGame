@@ -10,7 +10,7 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 
-public class Enemy extends Position implements GameObject {
+public class Enemy extends Object implements GameObject {
     private Rect rectangle;
     private Bitmap[] EnemySprite = new Bitmap[3];
     private Context context;

@@ -6,6 +6,7 @@ import android.view.SurfaceHolder;
 
 import androidx.annotation.RequiresApi;
 
+
 public class MainThread extends Thread {
 
     public static final int MAX_FPS = 30; //Capping the FPS to max 30

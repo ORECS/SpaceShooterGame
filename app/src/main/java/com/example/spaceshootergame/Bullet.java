@@ -9,7 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-public class Bullet extends Position implements GameObject {
+public class Bullet extends Object implements GameObject {
 
     private Rect rectangle;
     private Bitmap[] bulletSprite = new Bitmap[2];

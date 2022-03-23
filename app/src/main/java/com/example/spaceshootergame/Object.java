@@ -1,13 +1,13 @@
 package com.example.spaceshootergame;
 
-public abstract class Position {
+public abstract class Object {
 
     private int xPos;
     private int yPos;
     private int xVel;
     private int yVel;
 
-    Position() {
+    Object() {
 
     }
 
@@ -15,6 +15,7 @@ public abstract class Position {
      * @return
      */
     public int getxPos() {
+
         return xPos;
     }
 
@@ -22,6 +23,7 @@ public abstract class Position {
      * @param xPos
      */
     public void setxPos(int xPos) {
+
         this.xPos = xPos;
     }
 
@@ -29,6 +31,7 @@ public abstract class Position {
      * @return
      */
     public int getyPos() {
+
         return yPos;
     }
 
@@ -36,6 +39,7 @@ public abstract class Position {
      * @param yPos
      */
     public void setyPos(int yPos) {
+
         this.yPos = yPos;
     }
 
@@ -43,6 +47,7 @@ public abstract class Position {
      * @return
      */
     public int getxVel() {
+
         return xVel;
     }
 
@@ -50,6 +55,7 @@ public abstract class Position {
      * @param xVel
      */
     public void setxVel(int xVel) {
+
         this.xVel = xVel;
     }
 
@@ -57,6 +63,7 @@ public abstract class Position {
      * @return
      */
     public int getyVel() {
+
         return yVel;
     }
 
@@ -64,6 +71,7 @@ public abstract class Position {
      * @param yVel
      */
     public void setyVel(int yVel) {
+
         this.yVel = yVel;
     }
 

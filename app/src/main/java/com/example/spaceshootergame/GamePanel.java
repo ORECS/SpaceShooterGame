@@ -156,9 +156,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-
-
-
         bullets.removeIf(bullet -> (bullet.isBulletExplosion()));
 
         for(Enemy enemy : enemies){
@@ -167,10 +164,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
 
         }
-
-
-
-
 
 
 
