@@ -2,10 +2,10 @@ package com.example.spaceshootergame;
 
 public abstract class Object {
 
-    private int xPos;
-    private int yPos;
-    private int xVel;
-    private int yVel;
+    private int PosX;
+    private int PosY;
+    private int VelocityX;
+    private int VelocityY;
 
     Object() {
 
@@ -16,7 +16,7 @@ public abstract class Object {
      */
     public int getxPos() {
 
-        return xPos;
+        return PosX;
     }
 
     /**
@@ -24,7 +24,7 @@ public abstract class Object {
      */
     public void setxPos(int xPos) {
 
-        this.xPos = xPos;
+        this.PosX = xPos;
     }
 
     /**
@@ -32,7 +32,7 @@ public abstract class Object {
      */
     public int getyPos() {
 
-        return yPos;
+        return PosY;
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class Object {
      */
     public void setyPos(int yPos) {
 
-        this.yPos = yPos;
+        this.PosY = yPos;
     }
 
     /**
@@ -48,7 +48,7 @@ public abstract class Object {
      */
     public int getxVel() {
 
-        return xVel;
+        return VelocityX;
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class Object {
      */
     public void setxVel(int xVel) {
 
-        this.xVel = xVel;
+        this.VelocityX = xVel;
     }
 
     /**
@@ -64,7 +64,7 @@ public abstract class Object {
      */
     public int getyVel() {
 
-        return yVel;
+        return VelocityY;
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class Object {
      */
     public void setyVel(int yVel) {
 
-        this.yVel = yVel;
+        this.VelocityY = yVel;
     }
 
     public abstract void updatePos(int n1, int n2);

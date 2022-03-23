@@ -14,9 +14,7 @@ public class Bullet extends Object implements GameObject {
     private Rect rectangle;
     private Bitmap[] bulletSprite = new Bitmap[2];
     private Context context;
-
-    Paint paint;
-
+    private Paint paint;
     private int health = 99;
     private int speed = 15;
     private boolean bulletExplosion =false;

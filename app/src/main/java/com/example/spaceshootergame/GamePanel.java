@@ -57,7 +57,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private int level2 =0;
     private int level3 =0;
     private Bitmap[] background = new Bitmap[3];
-    private MediaPlayer bGMusic;
+    private MediaPlayer SpaceMusic;
     private int highScore = 0;
 
 
@@ -101,8 +101,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         paint.setStyle(Paint.Style.FILL);
         //Instantiating MainThread class that we made
 
-        bGMusic = MediaPlayer.create(context, R.raw.music);
-        bGMusic.start();
+        SpaceMusic = MediaPlayer.create(context, R.raw.music);
+        SpaceMusic.start();
 
         playerPoint = new Point(150, 1600);
         player = new Player(new Rect(0, 0, 160, 80), playerPoint, this.getContext());
